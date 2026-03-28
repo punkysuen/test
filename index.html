@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>淺藍背景 · 九巴 2B</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html,
+    body {
+      min-height: 100%;
+    }
+    body {
+      background: #e3f2fd;
+      font-family: system-ui, "Segoe UI", "Microsoft JhengHei", sans-serif;
+      color: #1e3a5f;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 1.5rem 1rem 2.5rem;
+    }
+    main {
+      text-align: center;
+      padding: 0;
+      width: 100%;
+      max-width: 42rem;
+    }
+    h1 {
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 600;
+    }
+    .theme-btn {
+      margin-top: 1.25rem;
+      padding: 0.55rem 1.25rem;
+      font: inherit;
+      font-size: 0.95rem;
+      cursor: pointer;
+      border: 1px solid currentColor;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.35);
+      color: inherit;
+    }
+    .theme-btn:hover {
+      background: rgba(255, 255, 255, 0.55);
+    }
+    body.is-dark {
+      background: #000;
+      color: #e8eef5;
+    }
+    body.is-dark .theme-btn {
+      border-color: #6b7a8f;
+      background: rgba(255, 255, 255, 0.08);
+    }
+    body.is-dark .theme-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+    body.is-dark .kmb-panel {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+    body.is-dark .kmb-table th,
+    body.is-dark .kmb-table td {
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+    body.is-dark .kmb-meta {
+      color: #9aa8bc;
+    }
+    .kmb-panel {
+      margin-top: 1.75rem;
+      text-align: left;
+      background: rgba(255, 255, 255, 0.55);
+      border: 1px solid rgba(30, 58, 95, 0.12);
+      border-radius: 12px;
+      padding: 1rem 1rem 1.1rem;
+    }
+    .kmb-panel h2 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+      text-align: center;
+    }
+    .kmb-meta {
+      font-size: 0.8rem;
+      color: #4a6588;
+      text-align: center;
+      margin-bottom: 0.85rem;
+    }
+    .kmb-dir {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin: 0.85rem 0 0.4rem;
+      padding-bottom: 0.25rem;
+      border-bottom: 1px solid rgba(30, 58, 95, 0.15);
+    }
+    .kmb-dir:first-of-type {
+      margin-top: 0.25rem;
+    }
+    .kmb-table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .kmb-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+    .kmb-table th,
+    .kmb-table td {
+      border: 1px solid rgba(30, 58, 95, 0.12);
+      padding: 0.4rem 0.45rem;
+      vertical-align: top;
+    }
+    .kmb-table th {
+      background: rgba(255, 255, 255, 0.45);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .kmb-table td.seq {
+      width: 2.25rem;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .kmb-table td.name {
+      min-width: 6.5rem;
+    }
+    .kmb-table td.eta {
+      font-variant-numeric: tabular-nums;
+    }
+    .kmb-remark {
+      display: block;
+      font-size: 0.75rem;
+      opacity: 0.85;
+      margin-top: 0.15rem;
+    }
+    .kmb-status {
+      text-align: center;
+      font-size: 0.9rem;
+      padding: 0.75rem 0;
+    }
+    .kmb-status.error {
+      color: #b83232;
+    }
+    body.is-dark .kmb-status.error {
+      color: #f59b9b;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>歡迎</h1>
+    <button type="button" class="theme-btn" id="toBlackBtn">改為黑色背景</button>
+
+    <section class="kmb-panel" aria-labelledby="kmbTitle">
+      <h2 id="kmbTitle">九巴 2B 實時到站</h2>
+      <p class="kmb-meta" id="kmbMeta">資料來源：運輸署「資料一站通」· 約每 60 秒更新</p>
+      <div id="kmbStatus" class="kmb-status">載入中…</div>
+      <div id="kmbContent" hidden></div>
+    </section>
+  </main>
+  <script>
+    document.getElementById("toBlackBtn").addEventListener("click", function () {
+      document.body.classList.add("is-dark");
+    });
+
+    (function () {
+      var API = "https://data.etabus.gov.hk/v1/transport/kmb";
+      var ROUTE = "2B";
+      var SERVICE = "1";
+      var REFRESH_MS = 60000;
+
+      function pad(n) {
+        return n < 10 ? "0" + n : String(n);
+      }
+
+      function formatHKT(iso) {
+        if (!iso) return "—";
+        var d = new Date(iso);
+        if (isNaN(d.getTime())) return "—";
+        return (
+          pad(d.getHours()) +
+          ":" +
+          pad(d.getMinutes()) +
+          (d.getSeconds() ? ":" + pad(d.getSeconds()) : "")
+        );
+      }
+
+      function dirLabel(dir, sampleDest) {
+        if (sampleDest) return "往" + sampleDest;
+        return dir === "O" ? "方向 O" : "方向 I";
+      }
+
+      function fetchJson(url) {
+        return fetch(url, { cache: "no-store" }).then(function (r) {
+          if (!r.ok) throw new Error("HTTP " + r.status);
+          return r.json();
+        });
+      }
+
+      function buildStopIdMap(outData, inData) {
+        var map = {};
+        function add(rows, bound) {
+          if (!rows) return;
+          for (var i = 0; i < rows.length; i++) {
+            var row = rows[i];
+            map[bound + "-" + String(row.seq)] = row.stop;
+          }
+        }
+        add(outData, "O");
+        add(inData, "I");
+        return map;
+      }
+
+      function sortBySeq(rows) {
+        return rows.slice().sort(function (a, b) {
+          return parseInt(a.seq, 10) - parseInt(b.seq, 10);
+        });
+      }
+
+      function render(groups, stopRowsByDir, stopIdMap, idToName, generatedTs) {
+        var dirs = [
+          { code: "O", rows: stopRowsByDir.O },
+          { code: "I", rows: stopRowsByDir.I },
+        ];
+        var html = "";
+        for (var d = 0; d < dirs.length; d++) {
+          var dir = dirs[d].code;
+          var routeStops = sortBySeq(dirs[d].rows || []);
+          var sampleDest = "";
+          for (var k in groups) {
+            if (k.indexOf(dir + "-") === 0 && groups[k].length) {
+              sampleDest = groups[k][0].dest_tc || "";
+              break;
+            }
+          }
+          html += '<div class="kmb-dir">' + dirLabel(dir, sampleDest) + "</div>";
+          html += '<div class="kmb-table-wrap"><table class="kmb-table">';
+          html +=
+            "<thead><tr><th class=\"seq\">序</th><th class=\"name\">站名</th><th class=\"eta\">預計到站</th></tr></thead><tbody>";
+
+          for (var s = 0; s < routeStops.length; s++) {
+            var rs = routeStops[s];
+            var seq = String(rs.seq);
+            var key = dir + "-" + seq;
+            var etaRows = groups[key] ? groups[key].slice().sort(function (a, b) {
+              return (a.eta_seq || 0) - (b.eta_seq || 0);
+            }) : [];
+            var sid = stopIdMap[key];
+            var name = sid && idToName[sid] ? idToName[sid] : "—";
+
+            var etaCells = "";
+            for (var r = 0; r < etaRows.length; r++) {
+              var row = etaRows[r];
+              etaCells +=
+                (r ? "<br>" : "") +
+                formatHKT(row.eta) +
+                (row.rmk_tc
+                  ? '<span class="kmb-remark">' +
+                    row.rmk_tc +
+                    "</span>"
+                  : "");
+            }
+            if (!etaCells) etaCells = "—";
+
+            html +=
+              "<tr><td class=\"seq\">" +
+              seq +
+              "</td><td class=\"name\">" +
+              name +
+              '</td><td class="eta">' +
+              etaCells +
+              "</td></tr>";
+          }
+
+          html += "</tbody></table></div>";
+        }
+
+        var metaEl = document.getElementById("kmbMeta");
+        var gen = generatedTs ? " · 伺服器時間 " + generatedTs : "";
+        metaEl.textContent =
+          "資料來源：運輸署「資料一站通」data.etabus.gov.hk · 約每 60 秒更新" + gen;
+
+        document.getElementById("kmbContent").innerHTML = html;
+        document.getElementById("kmbStatus").hidden = true;
+        document.getElementById("kmbContent").hidden = false;
+      }
+
+      function run() {
+        var statusEl = document.getElementById("kmbStatus");
+        statusEl.classList.remove("error");
+        statusEl.hidden = false;
+        statusEl.textContent = "載入中…";
+        document.getElementById("kmbContent").hidden = true;
+
+        Promise.all([
+          fetchJson(API + "/route-eta/" + ROUTE + "/" + SERVICE),
+          fetchJson(API + "/route-stop/" + ROUTE + "/outbound/" + SERVICE),
+          fetchJson(API + "/route-stop/" + ROUTE + "/inbound/" + SERVICE),
+        ])
+          .then(function (results) {
+            var etaPayload = results[0];
+            var outStops = results[1].data || [];
+            var inStops = results[2].data || [];
+            var generatedTs = etaPayload.generated_timestamp || "";
+            if (generatedTs.length >= 16) {
+              generatedTs = generatedTs.slice(11, 16);
+            }
+
+            var rows = etaPayload.data || [];
+            var groups = {};
+            for (var i = 0; i < rows.length; i++) {
+              var row = rows[i];
+              var gkey = row.dir + "-" + row.seq;
+              if (!groups[gkey]) groups[gkey] = [];
+              groups[gkey].push(row);
+            }
+
+            var stopIdMap = buildStopIdMap(outStops, inStops);
+            var ids = [];
+            var seen = {};
+            for (var key in stopIdMap) {
+              if (stopIdMap.hasOwnProperty(key)) {
+                var id = stopIdMap[key];
+                if (!seen[id]) {
+                  seen[id] = true;
+                  ids.push(id);
+                }
+              }
+            }
+
+            return Promise.all(
+              ids.map(function (id) {
+                return fetchJson(API + "/stop/" + id);
+              })
+            ).then(function (stopResponses) {
+              var idToName = {};
+              for (var j = 0; j < ids.length; j++) {
+                var data = stopResponses[j].data;
+                if (data && data.name_tc) idToName[ids[j]] = data.name_tc;
+              }
+              return {
+                groups: groups,
+                stopRowsByDir: { O: outStops, I: inStops },
+                stopIdMap: stopIdMap,
+                idToName: idToName,
+                generatedTs: generatedTs,
+              };
+            });
+          })
+          .then(function (pack) {
+            render(
+              pack.groups,
+              pack.stopRowsByDir,
+              pack.stopIdMap,
+              pack.idToName,
+              pack.generatedTs
+            );
+          })
+          .catch(function (e) {
+            statusEl.hidden = false;
+            statusEl.classList.add("error");
+            statusEl.textContent =
+              "無法載入實時資料（請確認已連接網絡）。 " + (e.message || "");
+            document.getElementById("kmbContent").hidden = true;
+          });
+      }
+
+      run();
+      setInterval(run, REFRESH_MS);
+    })();
+  </script>
+</body>
+</html>
