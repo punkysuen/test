@@ -1,0 +1,22 @@
+以下檔案來自維基共享資源（Wikimedia Commons），於建置時下載至本儲存庫供 GitHub Pages 使用。
+
+leonardo-musician.jpg
+  https://commons.wikimedia.org/wiki/File:Leonardo_da_Vinci_-_Portrait_of_a_Musician.jpg
+
+donatello-zuccone.jpg
+  https://commons.wikimedia.org/wiki/File:Donatello,_abacuc_(zuccone),_1423-1435.JPG
+
+florence-dome.jpg
+  https://commons.wikimedia.org/wiki/File:Cupola_di_santa_maria_del_fiore_dal_campanile_di_giotto,_01.JPG
+
+botticelli-venus.jpg
+  https://commons.wikimedia.org/wiki/File:Sandro_Botticelli_046.jpg
+
+michelangelo-adam.jpg
+  https://commons.wikimedia.org/wiki/File:The_Creation_of_Adam.jpg
+
+raphael-athens.jpg
+  https://commons.wikimedia.org/wiki/File:The_School_of_Athens.jpg
+
+titian-bacchus.jpg
+  https://commons.wikimedia.org/wiki/File:Tizian_-_Bacchus_and_Ariadne_-_KMSsp25_-_Statens_Museum_for_Kunst.jpg
