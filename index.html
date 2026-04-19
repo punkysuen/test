@@ -3,375 +3,639 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>淺藍背景 · 九巴 222222222B</title>
+  <meta name="description" content="文藝復興時期重要藝術家介紹：達文西、米開朗基羅、拉斐爾、波提切利、提香與布魯內萊斯基等。" />
+  <title>文藝復興 · 藝術家選介</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Noto+Sans+TC:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
-    * {
+    :root {
+      --ink: #1c1914;
+      --ink-muted: #4a4338;
+      --paper: #f5efe3;
+      --paper-deep: #e8dcc8;
+      --accent: #8b4513;
+      --accent-soft: #c4a574;
+      --gold: #b8860b;
+      --card: #fffcf5;
+      --shadow: rgba(28, 25, 20, 0.12);
+      --radius: 14px;
+      --font-serif: "Cormorant Garamond", "Noto Serif TC", serif;
+      --font-sans: "Noto Sans TC", system-ui, sans-serif;
+    }
+
+    *,
+    *::before,
+    *::after {
       box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
       margin: 0;
-      padding: 0;
-    }
-    html,
-    body {
-      min-height: 100%;
-    }
-    body {
-      background: #e3f2fd;
-      font-family: system-ui, "Segoe UI", "Microsoft JhengHei", sans-serif;
-      color: #1e3a5f;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      line-height: 1.65;
+      color: var(--ink);
+      background: var(--paper);
+      background-image:
+        radial-gradient(ellipse 120% 80% at 50% -20%, rgba(200, 170, 120, 0.25), transparent 55%),
+        linear-gradient(180deg, var(--paper) 0%, var(--paper-deep) 100%);
       min-height: 100vh;
-      padding: 1.5rem 1rem 2.5rem;
     }
-    main {
-      text-align: center;
-      padding: 0;
-      width: 100%;
-      max-width: 42rem;
+
+    a {
+      color: var(--accent);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
     }
-    h1 {
-      font-size: clamp(1.5rem, 4vw, 2rem);
+
+    a:hover {
+      color: var(--ink);
+    }
+
+    .wrap {
+      width: min(1120px, 100% - 2rem);
+      margin-inline: auto;
+    }
+
+    /* Header */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(245, 239, 227, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(139, 69, 19, 0.12);
+    }
+
+    .site-header .inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.85rem 0;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
       font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      text-decoration: none;
     }
-    .theme-btn {
-      margin-top: 1.25rem;
-      padding: 0.55rem 1.25rem;
-      font: inherit;
-      font-size: 0.95rem;
-      cursor: pointer;
-      border: 1px solid currentColor;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.35);
-      color: inherit;
+
+    .logo:hover {
+      color: var(--accent);
     }
-    .theme-btn:hover {
-      background: rgba(255, 255, 255, 0.55);
-    }
-    body.is-dark {
-      background: #000;
-      color: #e8eef5;
-    }
-    body.is-dark .theme-btn {
-      border-color: #6b7a8f;
-      background: rgba(255, 255, 255, 0.08);
-    }
-    body.is-dark .theme-btn:hover {
-      background: rgba(255, 255, 255, 0.15);
-    }
-    body.is-dark .kmb-panel {
-      background: rgba(255, 255, 255, 0.06);
-      border-color: rgba(255, 255, 255, 0.12);
-    }
-    body.is-dark .kmb-table th,
-    body.is-dark .kmb-table td {
-      border-color: rgba(255, 255, 255, 0.1);
-    }
-    body.is-dark .kmb-meta {
-      color: #9aa8bc;
-    }
-    .kmb-panel {
-      margin-top: 1.75rem;
-      text-align: left;
-      background: rgba(255, 255, 255, 0.55);
-      border: 1px solid rgba(30, 58, 95, 0.12);
-      border-radius: 12px;
-      padding: 1rem 1rem 1.1rem;
-    }
-    .kmb-panel h2 {
-      font-size: 1.05rem;
-      font-weight: 600;
-      margin-bottom: 0.35rem;
-      text-align: center;
-    }
-    .kmb-meta {
-      font-size: 0.8rem;
-      color: #4a6588;
-      text-align: center;
-      margin-bottom: 0.85rem;
-    }
-    .kmb-dir {
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.25rem;
       font-size: 0.9rem;
-      font-weight: 600;
-      margin: 0.85rem 0 0.4rem;
-      padding-bottom: 0.25rem;
-      border-bottom: 1px solid rgba(30, 58, 95, 0.15);
+      font-weight: 500;
     }
-    .kmb-dir:first-of-type {
-      margin-top: 0.25rem;
+
+    .nav a {
+      color: var(--ink-muted);
+      text-decoration: none;
     }
-    .kmb-table-wrap {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
+
+    .nav a:hover {
+      color: var(--accent);
     }
-    .kmb-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.82rem;
-    }
-    .kmb-table th,
-    .kmb-table td {
-      border: 1px solid rgba(30, 58, 95, 0.12);
-      padding: 0.4rem 0.45rem;
-      vertical-align: top;
-    }
-    .kmb-table th {
-      background: rgba(255, 255, 255, 0.45);
-      font-weight: 600;
-      white-space: nowrap;
-    }
-    .kmb-table td.seq {
-      width: 2.25rem;
+
+    /* Hero */
+    .hero {
+      padding: clamp(2.5rem, 6vw, 4.5rem) 0 clamp(2rem, 4vw, 3rem);
       text-align: center;
-      white-space: nowrap;
     }
-    .kmb-table td.name {
-      min-width: 6.5rem;
-    }
-    .kmb-table td.eta {
-      font-variant-numeric: tabular-nums;
-    }
-    .kmb-remark {
-      display: block;
+
+    .hero-badge {
+      display: inline-block;
       font-size: 0.75rem;
-      opacity: 0.85;
-      margin-top: 0.15rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(184, 134, 11, 0.45);
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
     }
-    .kmb-status {
+
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2.1rem, 5vw, 3.25rem);
+      font-weight: 600;
+      line-height: 1.15;
+      margin: 0 0 1rem;
+      color: var(--ink);
+    }
+
+    .hero-lead {
+      max-width: 38rem;
+      margin: 0 auto 1.75rem;
+      color: var(--ink-muted);
+      font-size: 1.05rem;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.35rem;
+      font: inherit;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--card);
+      background: linear-gradient(145deg, var(--accent) 0%, #6b3410 100%);
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      box-shadow: 0 4px 14px var(--shadow);
+    }
+
+    .hero-cta:hover {
+      filter: brightness(1.06);
+    }
+
+    /* Sections */
+    section {
+      padding: 2.5rem 0;
+    }
+
+    section h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.65rem, 3.5vw, 2.1rem);
+      font-weight: 600;
+      margin: 0 0 1rem;
       text-align: center;
-      font-size: 0.9rem;
-      padding: 0.75rem 0;
     }
-    .kmb-status.error {
-      color: #b83232;
+
+    .section-intro {
+      max-width: 42rem;
+      margin: 0 auto 2rem;
+      text-align: center;
+      color: var(--ink-muted);
     }
-    body.is-dark .kmb-status.error {
-      color: #f59b9b;
+
+    /* About */
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+      margin-top: 0.5rem;
+    }
+
+    .about-card {
+      background: var(--card);
+      border: 1px solid rgba(139, 69, 19, 0.1);
+      border-radius: var(--radius);
+      padding: 1.35rem 1.5rem;
+      box-shadow: 0 8px 28px var(--shadow);
+    }
+
+    .about-card h3 {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      margin: 0 0 0.5rem;
+      color: var(--accent);
+    }
+
+    .about-card p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: var(--ink-muted);
+    }
+
+    /* Artist cards */
+    .artist-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    article.artist {
+      background: var(--card);
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid rgba(139, 69, 19, 0.1);
+      box-shadow: 0 10px 36px var(--shadow);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .artist-visual {
+      position: relative;
+      aspect-ratio: 16 / 10;
+      background: linear-gradient(160deg, var(--paper-deep) 0%, #d4c4a8 100%);
+      overflow: hidden;
+    }
+
+    .artist-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .artist-visual figcaption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 0.4rem 0.65rem;
+      font-size: 0.68rem;
+      color: rgba(255, 252, 245, 0.92);
+      background: linear-gradient(transparent, rgba(28, 25, 20, 0.75));
+    }
+
+    .artist-body {
+      padding: 1.25rem 1.35rem 1.4rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .artist-meta {
+      font-size: 0.8rem;
+      color: var(--accent-soft);
+      font-weight: 500;
+      margin-bottom: 0.35rem;
+    }
+
+    .artist-body h3 {
+      font-family: var(--font-serif);
+      font-size: 1.45rem;
+      font-weight: 600;
+      margin: 0 0 0.65rem;
+      line-height: 1.25;
+    }
+
+    .artist-body p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: var(--ink-muted);
+      flex: 1;
+    }
+
+    .artist-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 1rem;
+    }
+
+    .tag {
+      font-size: 0.72rem;
+      font-weight: 500;
+      padding: 0.25rem 0.55rem;
+      border-radius: 6px;
+      background: rgba(139, 69, 19, 0.08);
+      color: var(--ink-muted);
+    }
+
+    /* Timeline */
+    .timeline {
+      max-width: 640px;
+      margin: 0 auto;
+      border-left: 2px solid rgba(184, 134, 11, 0.35);
+      padding-left: 1.5rem;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-bottom: 1.5rem;
+    }
+
+    .timeline-item:last-child {
+      padding-bottom: 0;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: calc(-1.5rem - 6px);
+      top: 0.35rem;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--gold);
+      border: 2px solid var(--paper);
+    }
+
+    .timeline-item strong {
+      display: block;
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      color: var(--accent);
+      margin-bottom: 0.25rem;
+    }
+
+    .timeline-item p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: var(--ink-muted);
+    }
+
+    /* Footer */
+    .site-footer {
+      margin-top: 2rem;
+      padding: 2rem 0 2.5rem;
+      border-top: 1px solid rgba(139, 69, 19, 0.12);
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--ink-muted);
+    }
+
+    .site-footer p {
+      margin: 0.35rem 0;
+      max-width: 36rem;
+      margin-inline: auto;
+    }
+
+    @media (max-width: 520px) {
+      .site-header .inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
   </style>
 </head>
 <body>
-  <main>
-    <h1>歡迎</h1>
-    <button type="button" class="theme-btn" id="toBlackBtn">改為黑色背景</button>
+  <header class="site-header">
+    <div class="wrap inner">
+      <a class="logo" href="#top">文藝復興 · 藝術家</a>
+      <nav class="nav" aria-label="頁面導覽">
+        <a href="#about">時代背景</a>
+        <a href="#artists">藝術家</a>
+        <a href="#timeline">簡要年表</a>
+      </nav>
+    </div>
+  </header>
 
-    <section class="kmb-panel" aria-labelledby="kmbTitle">
-      <h2 id="kmbTitle">九巴 222222222B 實時到站</h2>
-      <p class="kmb-meta" id="kmbMeta">資料來源：運輸署「資料一站通」· 約每 60 秒更新</p>
-      <div id="kmbStatus" class="kmb-status">載入中…</div>
-      <div id="kmbContent" hidden></div>
+  <main id="top">
+    <header class="hero">
+      <div class="wrap">
+        <p class="hero-badge">Rinascimento</p>
+        <h1>重新發現人與世界的文藝復興</h1>
+        <p class="hero-lead">
+          約十四至十七世紀，歐洲在古典學問、透視與解剖學的基礎上，發展出以人為中心的新視野。以下介紹幾位在繪畫、雕塑與建築上影響深遠的巨匠。
+        </p>
+        <button type="button" class="hero-cta" onclick="document.getElementById('artists').scrollIntoView({ behavior: 'smooth' })">
+          瀏覽藝術家
+        </button>
+      </div>
+    </header>
+
+    <section id="about" aria-labelledby="about-title">
+      <div class="wrap">
+        <h2 id="about-title">何謂文藝復興</h2>
+        <p class="section-intro">
+          「文藝復興」義大利文為 <em lang="it">Rinascimento</em>，意指對古希臘、羅馬文化與形式的「再生」。佛羅倫斯、羅馬與威尼斯等地成為創作中心，贊助制度與行會傳統則滋養了達文西、米開朗基羅等人的工作室與大型工程。
+        </p>
+        <div class="about-grid">
+          <div class="about-card">
+            <h3>人文主義</h3>
+            <p>強調人的尊嚴與理性，文學與藝術題材從純然神學擴展到歷史、神話與肖像。</p>
+          </div>
+          <div class="about-card">
+            <h3>透視與寫實</h3>
+            <p>線性透視、明暗對照（<span lang="it">chiaroscuro</span>）與解剖研究，使畫面空間與人體更具說服力。</p>
+          </div>
+          <div class="about-card">
+            <h3>跨域奇才</h3>
+            <p>許多巨匠同時身兼建築師、工程師或詩人，作品與當代科學、宗教論述緊密交織。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="artists" aria-labelledby="artists-title">
+      <div class="wrap">
+        <h2 id="artists-title">代表藝術家</h2>
+        <p class="section-intro">依出生年代排序；圖片為公有領域或自由授權之代表作示意。</p>
+        <div class="artist-grid">
+          <article class="artist">
+            <figure class="artist-visual">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Leonardo_da_Vinci_-_Portrait_of_a_Musicain.jpg/640px-Leonardo_da_Vinci_-_Portrait_of_a_Musicain.jpg"
+                alt="李奧納多·達·文西《音樂家肖像》"
+                width="640"
+                height="400"
+                loading="lazy"
+              />
+              <figcaption>《音樂家肖像》，約 1485 年（米蘭安布羅修畫廊）</figcaption>
+            </figure>
+            <div class="artist-body">
+              <p class="artist-meta">1452–1519 · 佛羅倫斯／米蘭</p>
+              <h3>李奧納多·達·文西</h3>
+              <p>
+                畫家、發明家與自然哲學家。以暈塗法柔化輪廓，《最後的晚餐》與《蒙娜麗莎》展現心理深度與風景遠近。手稿中滿是解剖、水力與飛行器設計，體現觀察與實驗精神。
+              </p>
+              <div class="artist-tags">
+                <span class="tag">繪畫</span>
+                <span class="tag">解剖／透視</span>
+                <span class="tag">全才</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="artist">
+            <figure class="artist-visual">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Donatello%2C_Profeta_Habacuc_02.JPG/640px-Donatello%2C_Profeta_Habacuc_02.JPG"
+                alt="多那太羅雕塑《哈巴谷》頭部"
+                width="640"
+                height="400"
+                loading="lazy"
+              />
+              <figcaption>《哈巴谷》（綽號「南瓜頭」），佛羅倫斯聖母百花大教堂</figcaption>
+            </figure>
+            <div class="artist-body">
+              <p class="artist-meta">約 1386–1466 · 佛羅倫斯</p>
+              <h3>多那太羅</h3>
+              <p>
+                早期文藝復興雕塑巨擘。復興古典的立像與銅鑄技術，《大衛》青銅像與《加塔梅拉塔騎馬像》在動勢與心理描寫上影響後世至深。
+              </p>
+              <div class="artist-tags">
+                <span class="tag">雕塑</span>
+                <span class="tag">青銅鑄造</span>
+                <span class="tag">早期文藝復興</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="artist">
+            <figure class="artist-visual">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Brunelleschi%27s_dome_of_Florence_cathedral%2C_built_1420-1436.jpg/640px-Brunelleschi%27s_dome_of_Florence_cathedral%2C_built_1420-1436.jpg"
+                alt="佛羅倫斯聖母百花大教堂穹頂"
+                width="640"
+                height="400"
+                loading="lazy"
+              />
+              <figcaption>布魯內萊斯基設計的聖母百花大教堂穹頂</figcaption>
+            </figure>
+            <div class="artist-body">
+              <p class="artist-meta">1377–1446 · 佛羅倫斯</p>
+              <h3>菲利波·布魯內萊斯基</h3>
+              <p>
+                建築師與工程師，聖母百花大教堂雙層穹頂的設計者，並以透視法則實驗聞名。與多那太羅等人合作，為十五世紀佛羅倫斯建築訂下理性與比例的新典範。
+              </p>
+              <div class="artist-tags">
+                <span class="tag">建築</span>
+                <span class="tag">透視理論</span>
+                <span class="tag">穹頂工程</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="artist">
+            <figure class="artist-visual">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Sandro_Botticelli_-_La_nascita_di_Venere_-_Google_Art_Project_-_edited.jpg/640px-Sandro_Botticelli_-_La_nascita_di_Venere_-_Google_Art_Project_-_edited.jpg"
+                alt="波提切利《維納斯的誕生》"
+                width="640"
+                height="400"
+                loading="lazy"
+              />
+              <figcaption>《維納斯的誕生》，約 1485 年（烏菲茲美術館）</figcaption>
+            </figure>
+            <div class="artist-body">
+              <p class="artist-meta">約 1445–1510 · 佛羅倫斯</p>
+              <h3>山德羅·波提切利</h3>
+              <p>
+                美第奇家族贊助下的重要畫家。線條優雅、色彩清澈，《春》與《維納斯的誕生》融合神話與象徵，呈現佛羅倫斯人文圈特有的詩意與哲思。
+              </p>
+              <div class="artist-tags">
+                <span class="tag">神話題材</span>
+                <span class="tag">線條與裝飾</span>
+                <span class="tag">烏菲茲</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="artist">
+            <figure class="artist-visual">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Michelangelo_Buonarroti_-_The_Creation_of_Adam_-_Google_Art_Project.jpg/640px-Michelangelo_Buonarroti_-_The_Creation_of_Adam_-_Google_Art_Project.jpg"
+                alt="米開朗基羅西斯汀禮拜堂天頂畫《創造亞當》局部"
+                width="640"
+                height="400"
+                loading="lazy"
+              />
+              <figcaption>《創造亞當》，西斯汀禮拜堂天頂畫局部</figcaption>
+            </figure>
+            <div class="artist-body">
+              <p class="artist-meta">1475–1564 · 佛羅倫斯／羅馬</p>
+              <h3>米開朗基羅·布奧納羅蒂</h3>
+              <p>
+                雕塑家、畫家、建築師與詩人。《大衛》大理石與西斯汀禮拜堂天頂畫展現強烈人體張力；晚年主持聖彼得大教堂工程，並留下動人的十四行詩。
+              </p>
+              <div class="artist-tags">
+                <span class="tag">雕塑</span>
+                <span class="tag">濕壁畫</span>
+                <span class="tag">建築</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="artist">
+            <figure class="artist-visual">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Raffaello_Sanzio_-_The_School_of_Athens_-_Google_Art_Project_2.jpg/640px-Raffaello_Sanzio_-_The_School_of_Athens_-_Google_Art_Project_2.jpg"
+                alt="拉斐爾《雅典學院》"
+                width="640"
+                height="400"
+                loading="lazy"
+              />
+              <figcaption>《雅典學院》，梵蒂岡簽字廳</figcaption>
+            </figure>
+            <div class="artist-body">
+              <p class="artist-meta">1483–1520 · 烏爾比諾／羅馬</p>
+              <h3>拉斐爾·桑齊奧</h3>
+              <p>
+                以均衡構圖與柔和聖母像著稱。梵蒂岡簽字廳的《雅典學院》將哲學家群像置於宏偉建築空間，被視為文藝復興盛期「和諧」理想的縮影。
+              </p>
+              <div class="artist-tags">
+                <span class="tag">盛期文藝復興</span>
+                <span class="tag">濕壁畫</span>
+                <span class="tag">聖母像</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="artist">
+            <figure class="artist-visual">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Titian_-_Bacchus_and_Ariadne_-_Google_Art_Project.jpg/640px-Titian_-_Bacchus_and_Ariadne_-_Google_Art_Project.jpg"
+                alt="提香《巴庫斯與阿里阿德涅》"
+                width="640"
+                height="400"
+                loading="lazy"
+              />
+              <figcaption>《巴庫斯與阿里阿德涅》，約 1520–1523 年（英國國家美術館）</figcaption>
+            </figure>
+            <div class="artist-body">
+              <p class="artist-meta">約 1488/90–1576 · 威尼斯</p>
+              <h3>提香·韋切利奧</h3>
+              <p>
+                威尼斯畫派領袖，擅長富麗色彩與筆觸肌理。肖像、神話與宗教畫皆精，晚期作品色調更深沉，影響巴洛克與後世油畫語言。
+              </p>
+              <div class="artist-tags">
+                <span class="tag">威尼斯派</span>
+                <span class="tag">油彩</span>
+                <span class="tag">色彩</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="timeline" aria-labelledby="timeline-title">
+      <div class="wrap">
+        <h2 id="timeline-title">簡要年表</h2>
+        <p class="section-intro">文藝復興並非單一起點，下列為理解脈絡的幾個路標。</p>
+        <div class="timeline">
+          <div class="timeline-item">
+            <strong>約 1300 年代</strong>
+            <p>但丁、喬托等人在文學與繪畫上為「人的情感與空間」鋪路，常與「先文藝復興」相連。</p>
+          </div>
+          <div class="timeline-item">
+            <strong>1401 年</strong>
+            <p>佛羅倫斯洗禮堂北門銅門競賽，吉貝爾蒂勝出，象徵城市對公共藝術與古典語彙的重視。</p>
+          </div>
+          <div class="timeline-item">
+            <strong>約 1420–1436 年</strong>
+            <p>布魯內萊斯基完成聖母百花大教堂穹頂，工程與透視理論並進。</p>
+          </div>
+          <div class="timeline-item">
+            <strong>1500 年前後</strong>
+            <p>達文西、米開朗基羅與拉斐爾在米蘭、佛羅倫斯與羅馬的活動，標誌「盛期文藝復興」的高峰。</p>
+          </div>
+          <div class="timeline-item">
+            <strong>十六世紀</strong>
+            <p>威尼斯畫派（喬爾喬內、提香等）與手法主義（<span lang="it">Maniera</span>）在義大利延續並轉化文藝復興遺產。</p>
+          </div>
+        </div>
+      </div>
     </section>
   </main>
-  <script>
-    document.getElementById("toBlackBtn").addEventListener("click", function () {
-      document.body.classList.add("is-dark");
-    });
 
-    (function () {
-      var API = "https://data.etabus.gov.hk/v1/transport/kmb";
-      var ROUTE = "2B";
-      var SERVICE = "1";
-      var REFRESH_MS = 60000;
-
-      function pad(n) {
-        return n < 10 ? "0" + n : String(n);
-      }
-
-      function formatHKT(iso) {
-        if (!iso) return "—";
-        var d = new Date(iso);
-        if (isNaN(d.getTime())) return "—";
-        return (
-          pad(d.getHours()) +
-          ":" +
-          pad(d.getMinutes()) +
-          (d.getSeconds() ? ":" + pad(d.getSeconds()) : "")
-        );
-      }
-
-      function dirLabel(dir, sampleDest) {
-        if (sampleDest) return "往" + sampleDest;
-        return dir === "O" ? "方向 O" : "方向 I";
-      }
-
-      function fetchJson(url) {
-        return fetch(url, { cache: "no-store" }).then(function (r) {
-          if (!r.ok) throw new Error("HTTP " + r.status);
-          return r.json();
-        });
-      }
-
-      function buildStopIdMap(outData, inData) {
-        var map = {};
-        function add(rows, bound) {
-          if (!rows) return;
-          for (var i = 0; i < rows.length; i++) {
-            var row = rows[i];
-            map[bound + "-" + String(row.seq)] = row.stop;
-          }
-        }
-        add(outData, "O");
-        add(inData, "I");
-        return map;
-      }
-
-      function sortBySeq(rows) {
-        return rows.slice().sort(function (a, b) {
-          return parseInt(a.seq, 10) - parseInt(b.seq, 10);
-        });
-      }
-
-      function render(groups, stopRowsByDir, stopIdMap, idToName, generatedTs) {
-        var dirs = [
-          { code: "O", rows: stopRowsByDir.O },
-          { code: "I", rows: stopRowsByDir.I },
-        ];
-        var html = "";
-        for (var d = 0; d < dirs.length; d++) {
-          var dir = dirs[d].code;
-          var routeStops = sortBySeq(dirs[d].rows || []);
-          var sampleDest = "";
-          for (var k in groups) {
-            if (k.indexOf(dir + "-") === 0 && groups[k].length) {
-              sampleDest = groups[k][0].dest_tc || "";
-              break;
-            }
-          }
-          html += '<div class="kmb-dir">' + dirLabel(dir, sampleDest) + "</div>";
-          html += '<div class="kmb-table-wrap"><table class="kmb-table">';
-          html +=
-            "<thead><tr><th class=\"seq\">序</th><th class=\"name\">站名</th><th class=\"eta\">預計到站</th></tr></thead><tbody>";
-
-          for (var s = 0; s < routeStops.length; s++) {
-            var rs = routeStops[s];
-            var seq = String(rs.seq);
-            var key = dir + "-" + seq;
-            var etaRows = groups[key] ? groups[key].slice().sort(function (a, b) {
-              return (a.eta_seq || 0) - (b.eta_seq || 0);
-            }) : [];
-            var sid = stopIdMap[key];
-            var name = sid && idToName[sid] ? idToName[sid] : "—";
-
-            var etaCells = "";
-            for (var r = 0; r < etaRows.length; r++) {
-              var row = etaRows[r];
-              etaCells +=
-                (r ? "<br>" : "") +
-                formatHKT(row.eta) +
-                (row.rmk_tc
-                  ? '<span class="kmb-remark">' +
-                    row.rmk_tc +
-                    "</span>"
-                  : "");
-            }
-            if (!etaCells) etaCells = "—";
-
-            html +=
-              "<tr><td class=\"seq\">" +
-              seq +
-              "</td><td class=\"name\">" +
-              name +
-              '</td><td class="eta">' +
-              etaCells +
-              "</td></tr>";
-          }
-
-          html += "</tbody></table></div>";
-        }
-
-        var metaEl = document.getElementById("kmbMeta");
-        var gen = generatedTs ? " · 伺服器時間 " + generatedTs : "";
-        metaEl.textContent =
-          "資料來源：運輸署「資料一站通」data.etabus.gov.hk · 約每 60 秒更新" + gen;
-
-        document.getElementById("kmbContent").innerHTML = html;
-        document.getElementById("kmbStatus").hidden = true;
-        document.getElementById("kmbContent").hidden = false;
-      }
-
-      function run() {
-        var statusEl = document.getElementById("kmbStatus");
-        statusEl.classList.remove("error");
-        statusEl.hidden = false;
-        statusEl.textContent = "載入中…";
-        document.getElementById("kmbContent").hidden = true;
-
-        Promise.all([
-          fetchJson(API + "/route-eta/" + ROUTE + "/" + SERVICE),
-          fetchJson(API + "/route-stop/" + ROUTE + "/outbound/" + SERVICE),
-          fetchJson(API + "/route-stop/" + ROUTE + "/inbound/" + SERVICE),
-        ])
-          .then(function (results) {
-            var etaPayload = results[0];
-            var outStops = results[1].data || [];
-            var inStops = results[2].data || [];
-            var generatedTs = etaPayload.generated_timestamp || "";
-            if (generatedTs.length >= 16) {
-              generatedTs = generatedTs.slice(11, 16);
-            }
-
-            var rows = etaPayload.data || [];
-            var groups = {};
-            for (var i = 0; i < rows.length; i++) {
-              var row = rows[i];
-              var gkey = row.dir + "-" + row.seq;
-              if (!groups[gkey]) groups[gkey] = [];
-              groups[gkey].push(row);
-            }
-
-            var stopIdMap = buildStopIdMap(outStops, inStops);
-            var ids = [];
-            var seen = {};
-            for (var key in stopIdMap) {
-              if (stopIdMap.hasOwnProperty(key)) {
-                var id = stopIdMap[key];
-                if (!seen[id]) {
-                  seen[id] = true;
-                  ids.push(id);
-                }
-              }
-            }
-
-            return Promise.all(
-              ids.map(function (id) {
-                return fetchJson(API + "/stop/" + id);
-              })
-            ).then(function (stopResponses) {
-              var idToName = {};
-              for (var j = 0; j < ids.length; j++) {
-                var data = stopResponses[j].data;
-                if (data && data.name_tc) idToName[ids[j]] = data.name_tc;
-              }
-              return {
-                groups: groups,
-                stopRowsByDir: { O: outStops, I: inStops },
-                stopIdMap: stopIdMap,
-                idToName: idToName,
-                generatedTs: generatedTs,
-              };
-            });
-          })
-          .then(function (pack) {
-            render(
-              pack.groups,
-              pack.stopRowsByDir,
-              pack.stopIdMap,
-              pack.idToName,
-              pack.generatedTs
-            );
-          })
-          .catch(function (e) {
-            statusEl.hidden = false;
-            statusEl.classList.add("error");
-            statusEl.textContent =
-              "無法載入實時資料（請確認已連接網絡）。 " + (e.message || "");
-            document.getElementById("kmbContent").hidden = true;
-          });
-      }
-
-      run();
-      setInterval(run, REFRESH_MS);
-    })();
-  </script>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>本頁為教育性質之導覽介紹，作品圖像版權狀態請以各典藏機構為準。</p>
+      <p>參考：一般藝術史通論與公有領域圖庫（如維基共享資源）。</p>
+    </div>
+  </footer>
 </body>
 </html>
